@@ -1,0 +1,35 @@
+import numpy as np
+import pandas as pd
+import read_data
+import pickle
+import lightgbm as lgb
+import os
+
+artificial_train, artificial_labes, artificial_test, digits_train, digits_labes, digits_test = read_data.read_data()
+
+file_art = '20-0.862-artificial-boruta-2018-12-22_21:48.pkl'
+file_digits = '293-0.98083-digits-l1-2018-12-22_22:20.pkl'
+
+with open('models/{}'.format(file_art), 'rb') as file:
+    model = pickle.load(file)
+
+gbc = lgb.LGBMClassifier(objective='binary', **model.params)
+
+gbc.fit(artificial_train, artificial_labes)
+
+prob = pd.DataFrame({"RAFKOB": gbc.predict_proba(artificial_test)[:, 1]})
+
+prob.to_csv("predictions/RAFKOB_artificial_prediction.txt", index=False, header=False)
+
+
+with open('models/{}'.format(file_digits), 'rb') as file:
+    model = pickle.load(file)
+
+gbc = lgb.LGBMClassifier(objective='binary', **model.params)
+
+gbc.fit(digits_train, digits_labes)
+
+prob = pd.DataFrame({"RAFKOB": gbc.predict_proba(digits_test)[:, 1]})
+
+prob.to_csv("predictions/RAFKOB_digits_prediction.txt", index=False, header=False)
+
