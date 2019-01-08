@@ -24,7 +24,7 @@ PARAMS = {
     'bagging_fraction': uniform(0.3, 0.7)
 }
 METHOD = 'importance'
-n_iter_search = 2
+n_iter_search = 200
 
 artificial_train, artificial_labes, artificial_test, digits_train, digits_labes, digits_test = read_data.read_data()
 

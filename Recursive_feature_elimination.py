@@ -5,6 +5,7 @@ import lightgbm as lgb
 from scipy.stats import uniform
 from scipy.stats import randint as sp_randint
 from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
 from tqdm import tqdm
 from model_class import ModelHandler
 import read_data
@@ -36,19 +37,19 @@ n_iter_search = 2
 
 artificial_train, artificial_labes, artificial_test, digits_train, digits_labes, digits_test = read_data.read_data()
 
-X_train = artificial_train
-y = artificial_labes
-X_test = artificial_test
-dataset_name = 'artificial'
+# X_train = artificial_train
+# y = artificial_labes
+# X_test = artificial_test
+# dataset_name = 'artificial'
 
-# X_train = digits_train
-# y = digits_labes
-# X_test = digits_test
-# dataset_name = 'digits'
+X_train = digits_train
+y = digits_labes
+X_test = digits_test
+dataset_name = 'digits'
 
 # Create the RFE object and compute a cross-validated score.
-gbc = lgb.LGBMClassifier(is_unbalance=False, objective='binary', n_jobs=1, silent=True)
-
+# gbc = lgb.LGBMClassifier(is_unbalance=False, objective='binary', n_jobs=1, silent=True)
+gbc = LogisticRegression(random_state=0, solver='lbfgs', multi_class='ovr')
 # The "accuracy" scoring is proportional to the number of correct
 # classifications
 rfecv = RFECV(estimator=gbc, step=1, cv=StratifiedKFold(5),

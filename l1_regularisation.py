@@ -27,19 +27,19 @@ PARAMS = {
     'bagging_fraction': uniform(0.3, 0.7)
 }
 METHOD = 'l1'
-n_iter_search = 2
+n_iter_search = 200
 
 artificial_train, artificial_labes, artificial_test, digits_train, digits_labes, digits_test = read_data.read_data()
 
-# X_train = artificial_train
-# y = artificial_labes
-# X_test = artificial_test
-# dataset_name = 'artificial'
+X_train = artificial_train
+y = artificial_labes
+X_test = artificial_test
+dataset_name = 'artificial'
 
-X_train = digits_train
-y = digits_labes
-X_test = digits_test
-dataset_name = 'digits'
+# X_train = digits_train
+# y = digits_labes
+# X_test = digits_test
+# dataset_name = 'digits'
 
 iris = load_iris()
 

@@ -21,7 +21,6 @@ prob = pd.DataFrame({"RAFKOB": gbc.predict_proba(artificial_test)[:, 1]})
 
 prob.to_csv("predictions/RAFKOB_artificial_prediction.txt", index=False, header=False)
 
-
 with open('models/{}'.format(file_digits), 'rb') as file:
     model = pickle.load(file)
 
@@ -32,4 +31,3 @@ gbc.fit(digits_train, digits_labes)
 prob = pd.DataFrame({"RAFKOB": gbc.predict_proba(digits_test)[:, 1]})
 
 prob.to_csv("predictions/RAFKOB_digits_prediction.txt", index=False, header=False)
-
