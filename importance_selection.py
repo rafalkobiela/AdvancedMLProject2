@@ -84,6 +84,13 @@ model = ModelHandler(params=params[np.argmax(scores)],
                      dataset=dataset_name,
                      date=datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
 
+with open('models/scores_dig.pkl', 'wb') as file:
+    pickle.dump(scores, file)
+
+with open('models/variables_dig.pkl', 'wb') as file:
+    pickle.dump(variables, file)
+
+
 with open('models/{}-{}-{}-{}-{}.pkl'.format(len(model.variables),
                                              round(model.score, 5),
                                              model.dataset,
