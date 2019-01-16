@@ -13,6 +13,8 @@ file_digits = '293-0.98083-digits-l1-2018-12-22_22:20.pkl'
 with open('models/{}'.format(file_art), 'rb') as file:
     model = pickle.load(file)
 
+# dodać filtrowanie zmiennych
+
 gbc = lgb.LGBMClassifier(objective='binary', **model.params)
 
 gbc.fit(artificial_train, artificial_labes)
@@ -20,6 +22,7 @@ gbc.fit(artificial_train, artificial_labes)
 prob = pd.DataFrame({"RAFKOB": gbc.predict_proba(artificial_test)[:, 1]})
 
 prob.to_csv("predictions/RAFKOB_artificial_prediction.txt", index=False, header=False)
+
 
 with open('models/{}'.format(file_digits), 'rb') as file:
     model = pickle.load(file)
@@ -31,3 +34,4 @@ gbc.fit(digits_train, digits_labes)
 prob = pd.DataFrame({"RAFKOB": gbc.predict_proba(digits_test)[:, 1]})
 
 prob.to_csv("predictions/RAFKOB_digits_prediction.txt", index=False, header=False)
+
